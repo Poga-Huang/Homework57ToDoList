@@ -25,21 +25,7 @@ class ToDoListTableViewController: UITableViewController {
         
     }
 
-    @IBAction func unwindToToDoListTableViewController(_ unwindSegue: UIStoryboardSegue) {
-        if let sourceViewController = unwindSegue.source as? EditTableViewController,let task = sourceViewController.task{
-            if let indexPath = tableView.indexPathForSelectedRow{
-                tasks[indexPath.row] = task
-                tableView.reloadRows(at: [indexPath], with: .fade)
-            }else{
-                tasks.insert(task, at: 0)
-                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-                tableView.reloadData()
-            }
-        }
-        
-        
-        
-    }
+   
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +44,19 @@ class ToDoListTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    //unwindSegue
+    @IBAction func unwindToToDoListTableViewController(_ unwindSegue: UIStoryboardSegue) {
+        if let sourceViewController = unwindSegue.source as? EditTableViewController,let task = sourceViewController.task{
+            if let indexPath = tableView.indexPathForSelectedRow{
+                tasks[indexPath.row] = task
+                tableView.reloadRows(at: [indexPath], with: .fade)
+            }else{
+                tasks.insert(task, at: 0)
+                tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                tableView.reloadData()
+            }
+        }
     }
     
     
